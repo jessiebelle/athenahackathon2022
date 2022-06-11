@@ -73,13 +73,47 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "config.pagination.CybsafeDefaultPagination",
+    "PAGE_SIZE": 50,
+    "MAX_PAGE_SIZE": 1000,
+    "JSON_UNDERSCOREIZE": {"no_underscore_before_number": True},
+    "DEFAULT_RENDERER_CLASSES": (
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication"
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.ScopedRateThrottle",
+        "cybsafe_py.throttling.PublicAPIUserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "public_api_per_user": "100000/hour",
+        "public_api_per_user_expensive": "1700/min",
+        "auth_password_reset": "2/min",
+        "auth_password_login": "10/min",
+    },
+}
 
+ROOT_URLCONF = "config.urls"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        },
     }
-}
 
 
 # Password validation
