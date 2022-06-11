@@ -28,7 +28,7 @@ class Company(models.Model):
 
 class Experience(models.Model):
     id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField(null=True)
@@ -38,6 +38,7 @@ class Experience(models.Model):
 class Skill(models.Model):
     id = models.IntegerField(primary_key=True)
     skill_name = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class UserSkill(models.Model):
     id = models.IntegerField(primary_key=True)

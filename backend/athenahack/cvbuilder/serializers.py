@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from athenahackathon2022.backend.athenahack.cvbuilder.models import CV
+from athenahackathon2022.backend.athenahack.cvbuilder.models import CV, UserSkill, Experience
 
 
 class CVSerializers:
@@ -21,14 +21,7 @@ class CVSerializers:
         user_public_id = serializers.SerializerMethodField()
         user_deleted = serializers.SerializerMethodField()
         user_fullname = serializers.SerializerMethodField()
-        user_insight_response = serializers.CharField(source="insight_content")
-        course_section_title = serializers.SerializerMethodField()
-        course_section_url_slug = serializers.SerializerMethodField()
-        course_page_no = serializers.SerializerMethodField()
-        course_page_title = serializers.SerializerMethodField()
-        course_page_url_slug = serializers.SerializerMethodField()
-        insight_question = serializers.SerializerMethodField()
-        admin_responded = serializers.SerializerMethodField()
+
 
         class Meta:
             model = CV
@@ -53,116 +46,18 @@ class CVSerializers:
                 "archived",
             )
 
-        def get_work_experience(self, insight):
-            work_experience = None
-            if not insight.is_anon and insight.user:
-                fullname = insight.user.get_full_name()
-            return fullname
+        def get_work_experience(self, user):
+            work_experience = Experience.objects.filter(user=user)
+            return work_experience
 
-        def get_user_public_id(self, insight):
-            public_id = None
-            if not insight.is_anon and insight.user:
-                public_id = insight.user.public_id
-            return public_id
 
-        def get_user(self, insight):
-            user = None
-            if not insight.is_anon and insight.user:
-                user = insight.user.id
+        def get_user(self, user):
+            user = user
             return user
 
-        def get_user_deleted(self, insight):
-            user_deleted = None
-            if not insight.is_anon and insight.user:
-                user_deleted = insight.user.is_archived
-            return user_deleted
-
-        def get_insight_question(self, insight):
-            question_content = ""
-            insight_question_qs = InsightQuestion.objects.filter(
-                id=insight.annotation_type.id
+        def get_skills(self, user):
+            skills = UserSkill.objects.filter(
+                user=user
             )
-            if insight_question_qs.exists():
-                question_content = (
-                    insight_question_qs.first().translate.insight_question
-                )
+            return skills
 
-            return question_content
-
-        def get_admin_responded(self, insight):
-            admin_response = None
-            try:
-                insight_reply = InsightReply.objects.get(insight=insight)
-                admin_response = InsightSerializers.InsightAdminListSerializer(
-                    insight_reply
-                ).data
-
-            except InsightReply.DoesNotExist:
-                pass
-
-            return admin_response
-
-        def get_course_section_url_slug(self, insight):
-            course_section_slug = None
-            if insight.course_section:
-                try:
-                    course_section_slug = CourseSection.objects.get(
-                        published=True, id=insight.course_section.id
-                    ).url_slug
-                except CourseSection.DoesNotExist:
-                    pass
-
-            return course_section_slug
-
-        def get_course_section_title(self, insight):
-            course_section_title = None
-            if insight.course_section:
-                try:
-                    course_section_title = CourseSection.objects.get(
-                        published=True, id=insight.course_section.id
-                    ).translate.section_title
-                except CourseSection.DoesNotExist:
-                    pass
-
-            return course_section_title
-
-        def get_course_page_no(self, insight):
-            course_page_number = 0
-            if insight.course_page and insight.course_section:
-                pages = list(
-                    CoursePage.objects.filter(
-                        published=True, course_section_id=insight.course_section.id
-                    )
-                    .values_list("id", flat=True)
-                    .order_by("sort_order")
-                )
-                try:
-                    course_page_number = pages.index(insight.course_page.id) + 1
-                except ValueError:
-                    pass
-
-            return course_page_number
-
-        def get_course_page_url_slug(self, insight):
-            course_page_slug = None
-            if insight.course_page:
-                try:
-                    course_page_slug = CoursePage.objects.get(
-                        published=True, id=insight.course_page.id
-                    ).url_slug
-                except CoursePage.DoesNotExist:
-                    pass
-
-            return course_page_slug
-
-        def get_course_page_title(self, insight):
-            course_page_title = None
-            if insight.course_page:
-                try:
-                    course_page_title = CoursePage.objects.get(
-                        published=True, id=insight.course_page.id
-                    ).translate.page_title
-                except CoursePage.DoesNotExist:
-                    pass
-
-            return course_page_title
