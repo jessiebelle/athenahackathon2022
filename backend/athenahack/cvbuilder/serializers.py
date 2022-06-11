@@ -1,6 +1,6 @@
+from .models import (
+    CV, Experience, UserSkill)
 from rest_framework import serializers
-
-from athenahackathon2022.backend.athenahack.cvbuilder.models import CV, UserSkill, Experience
 
 
 class CVSerializers:

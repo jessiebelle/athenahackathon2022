@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Language(models.Model):
     id = models.IntegerField(primary_key=True)
     language = models.CharField(max_length=2)

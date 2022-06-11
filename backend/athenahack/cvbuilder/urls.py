@@ -2,8 +2,7 @@ from django.db import router
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from . import views
-from .views import CVViewSet, CVFinishedViewSet, CVQuestionsViewSet
+from .views import CVFinishedViewSet, CVQuestionsViewSet, CVViewSet
 
 app_name = "insights"
 
