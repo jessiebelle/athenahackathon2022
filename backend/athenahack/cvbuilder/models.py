@@ -2,13 +2,17 @@ from django.db import models
 
 from django.db import models
 
+class Language(models.Model):
+    language = models.CharField(max_length=200)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
 
-class Question(models.Model):
+class User(models.Model):
+    id = models.IntegerField(primary_key=True)
+    company = models.ForeignKey
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
 
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+class Company(models.Model):
+    id = models.BigAutoField()
