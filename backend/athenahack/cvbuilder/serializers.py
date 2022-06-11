@@ -61,3 +61,25 @@ class CVSerializers:
             )
             return skills
 
+    class CVCreateSerializerR1(serializers.ModelSerializer):
+        type_id = serializers.IntegerField(source="annotation_type_id")
+        content = serializers.CharField(source="insight_content")
+
+        class Meta:
+            model = CV
+            fields = (
+                "user",
+            )
+
+        def create(self, validated_data):
+            user = self.context["request"].user
+            validated_data["client_id"] = user.company
+            validated_data["user"] = user_profile
+            validated_data["department_id"] = user_profile.department_id
+
+            if "course_page" in validated_data:
+                validated_data["course_section_id"] = validated_data[
+                    "course_page"
+                ].course_section_id
+
+            return super().create(validated_data)

@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django_filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from athenahackathon2022.backend.athenahack.cvbuilder.models import CV
@@ -11,6 +13,7 @@ from athenahackathon2022.backend.athenahack.cvbuilder.serializers import CVSeria
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
+
 
 class CVViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
@@ -25,6 +28,7 @@ class CVViewSet(ReadOnlyModelViewSet):
         response = super().list(request, *args, **kwargs)
         return response
 
+
 class CVFinishedViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializers.CVResponseSerializer
@@ -38,6 +42,7 @@ class CVFinishedViewSet(ReadOnlyModelViewSet):
         response = super().list(request, *args, **kwargs)
         return response
 
+
 class CVQuestionsViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializers.CVResponseSerializer
@@ -50,3 +55,11 @@ class CVQuestionsViewSet(ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
         return response
+
+
+class CVCreateViewSetR1(
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
+):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CVSerializers.CVCreateSerializerR1
