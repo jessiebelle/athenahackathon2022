@@ -15,6 +15,10 @@ class User(models.Model):
     email = models.CharField(max_length=200)
     date_of_birth = models.DateField()
     preferred_language = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+class AboutMe(models.Model):
+    id = models.IntegerField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     about_me = models.CharField(max_length=2000, null=True)
     about_me_language_id = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
 
@@ -43,7 +47,7 @@ class UserSkill(models.Model):
 class SkillDisplayName(models.Model):
     id = models.IntegerField(primary_key=True)
     skill_id = models.ForeignKey(Skill, on_delete=models.CASCADE)
-    display_name = models.CharField(200)
+    display_name = models.CharField(max_length=200)
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
 
 class UserLanguage(models.Model):
