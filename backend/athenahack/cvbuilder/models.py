@@ -9,6 +9,7 @@ class Language(models.Model):
 
 class User(models.Model):
     id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
     company = models.ForeignKey
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
