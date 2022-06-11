@@ -54,3 +54,7 @@ class UserLanguage(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+
+class CV(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
