@@ -28,8 +28,8 @@ class Company(models.Model):
 
 class Experience(models.Model):
     id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField(null=True)
     role_name = models.CharField(max_length=200)
@@ -38,19 +38,24 @@ class Experience(models.Model):
 class Skill(models.Model):
     id = models.IntegerField(primary_key=True)
     skill_name = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class UserSkill(models.Model):
     id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     skill_id = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
 class SkillDisplayName(models.Model):
     id = models.IntegerField(primary_key=True)
-    skill_id = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=200)
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
 
 class UserLanguage(models.Model):
     id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     language_id = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+
+class CV(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
