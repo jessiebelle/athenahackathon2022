@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import CVFinishedViewSet, CVQuestionsViewSet, CVViewSet
 
-app_name = "insights"
+app_name = "cvbuilder"
 
 router = DefaultRouter()
 router.register(r"CV", CVFinishedViewSet, basename="viewcv")

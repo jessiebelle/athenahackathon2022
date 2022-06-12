@@ -17,7 +17,6 @@ class CVViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializers.CVResponseSerializer
     filter_backends = (OrderingFilter, DjangoFilterBackend)
-    ordering = ("insight_question",)
 
     def get_queryset(self):
         return CV.objects.filter_by_user(user=self.request.user)
