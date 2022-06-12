@@ -1,5 +1,5 @@
 import { TextareaAutosize, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 
@@ -17,10 +17,22 @@ function AboutMe({ aboutMe }) {
       [name]: value,
     });
   };
-  const editAboutMe = (event) => {
+
+  useEffect(() => {
+    console.log('change');
+  }, [formValues]);
+
+  const handleSubmit = (event) => {
+    // Here we would also post update to our endpoint once we have it!
     event.preventDefault();
+    const { name, value } = event.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
     setDisplayForm(false);
     console.log(formValues);
+    console.log('sub');
   };
 
   return (
@@ -28,7 +40,7 @@ function AboutMe({ aboutMe }) {
       <h1> About Me </h1>
       {displayForm ? (
         <form
-          onSubmit={editAboutMe}
+          onSubmit={handleSubmit}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -39,14 +51,14 @@ function AboutMe({ aboutMe }) {
           }}
         >
           <TextareaAutosize
-            name="skill"
+            name="aboutMe"
             id="outlined-basic"
             variant="outlined"
             type="text"
             style={{ width: 300 }}
             inputMode="text"
             defaultValue={formValues.aboutMe}
-            onInput={handleInputChange}
+            onChange={handleInputChange}
           />
           <SecondaryButton
             variant="contained"
@@ -56,7 +68,7 @@ function AboutMe({ aboutMe }) {
         </form>
       ) : (
         <>
-          <p> {aboutMe}</p>
+          <p> {formValues.aboutMe}</p>
           <PrimaryButton
             onClick={() => setDisplayForm(true)}
             text={'Edit about me'}
