@@ -2,6 +2,16 @@ from .models import (
     CV, Experience, UserSkill, User)
 from rest_framework import serializers
 
+class UserSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    email = serializers.CharField(style={'base_template': 'textarea.html'})
+
+    class Meta:
+
+        model = User
+        fields = ("id", "user", "name", "email")
+
 
 class CVSerializers:
     class CVSerializer(serializers.ModelSerializer):
@@ -11,22 +21,15 @@ class CVSerializers:
             model = CV
             fields = ("id", "user",)
 
-        def get_form_question(self, annotation_type):
-            insight_question = annotation_type.translate.insight_question
-
-            return insight_question
-
     class CVResponseSerializer(serializers.ModelSerializer):
         user = serializers.SerializerMethodField()
-        user_public_id = serializers.SerializerMethodField()
-        user_deleted = serializers.SerializerMethodField()
-        user_fullname = serializers.SerializerMethodField()
 
 
         class Meta:
             model = User
             fields = (
-                "user_id",
+                "user",
+                "id",
             )
 
         def get_work_experience(self, user):
