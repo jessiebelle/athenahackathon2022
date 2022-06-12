@@ -42,10 +42,10 @@ class ListCV(APIView):
 class CVFinishedViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializers.CVResponseSerializer
-    filter_backends = (OrderingFilter, DjangoFilterBackend)
+    filter_backends = (DjangoFilterBackend,)
 
     def get_queryset(self):
-        return CV.objects.filter(user=self.request.user_id)
+        return User.objects.all()
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)

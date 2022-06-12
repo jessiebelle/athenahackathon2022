@@ -58,4 +58,10 @@ class UserLanguage(models.Model):
 
 
 class CV(models.Model):
+    id = models.IntegerField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True)
+    role_name = models.CharField(max_length=200)
+    skills = models.ForeignKey(Skill, on_delete=models.CASCADE)
