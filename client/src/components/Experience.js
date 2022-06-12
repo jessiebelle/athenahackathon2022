@@ -29,17 +29,14 @@ function Experience({ experience }) {
       [name]: value,
     });
   };
-  // const addWorkExp = (event) => {
-  //   event.preventDefault();
-  //   setDisplayForm(false);
-  //   console.log('submit work exp');
-  // };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setDisplayForm(false);
     console.log(formValues);
   };
-  // console.log('THIS THE YEARs:', getYears('2020-01-01', '2021-01-01'));
+  
 
   return (
     <>
@@ -128,7 +125,7 @@ function Experience({ experience }) {
             />
             <SecondaryButton
               variant="contained"
-              type="submit"
+              type={'submit'}
               text={'Submit'}
             ></SecondaryButton>
           </form>

@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 
 import React from 'react';
 
-export default function SecondaryButton({ text, onClick }) {
+export default function SecondaryButton({ text, onClick, type }) {
   return (
     <Button
       variant="contained"
@@ -19,6 +19,7 @@ export default function SecondaryButton({ text, onClick }) {
         display: 'flex',
       }}
       onClick={onClick}
+      type={type}
     >
       {text}
     </Button>

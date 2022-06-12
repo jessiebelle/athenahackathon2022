@@ -9,6 +9,7 @@ function AboutMe({ aboutMe }) {
   };
   const [displayForm, setDisplayForm] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({
@@ -18,9 +19,10 @@ function AboutMe({ aboutMe }) {
   };
   const editAboutMe = (event) => {
     event.preventDefault();
-
+    setDisplayForm(false);
     console.log(formValues);
   };
+
   return (
     <>
       <h1> About Me </h1>
@@ -48,7 +50,7 @@ function AboutMe({ aboutMe }) {
           />
           <SecondaryButton
             variant="contained"
-            type="submit"
+            type={'submit'}
             text={'Submit'}
           ></SecondaryButton>
         </form>

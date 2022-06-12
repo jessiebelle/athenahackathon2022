@@ -78,7 +78,7 @@ export default function Skills({ skills }) {
           />
           <SecondaryButton
             variant="contained"
-            type="submit"
+            type={"submit"}
             text={'submit'}
           ></SecondaryButton>
         </form>

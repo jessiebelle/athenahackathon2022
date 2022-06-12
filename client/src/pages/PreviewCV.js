@@ -18,7 +18,7 @@ function PreviewCV() {
       <h1>Skills</h1>
       <Skills skills={DATA.skills} />
 
-      <SecondaryButton text={'Submit your CV'} />
+      <SecondaryButton type={'submit'} text={'Submit your CV'} />
     </Stack>
   );
 }
