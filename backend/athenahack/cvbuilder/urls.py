@@ -7,7 +7,7 @@ from .views import CVFinishedViewSet, CVQuestionsViewSet, CVViewSet
 app_name = "insights"
 
 router = DefaultRouter()
-router.register(r"CV", CVFinishedViewSet, basename="r1")
+router.register(r"CV", CVFinishedViewSet, basename="viewcv")
 router.register(
     r"CV-questions", CVQuestionsViewSet, basename="questions"
 ),
