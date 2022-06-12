@@ -14,15 +14,13 @@ function App() {
       }}
     >
       <Router>
-        <Header />
         <main className="py-3">
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/createCV" element={<CreateCV />} />
-            <Route path="/previewCV" element={<PreviewCV />} />
+            {/* <Route path="/" element={<HomePage />} />
+            <Route path="/createCV" element={<CreateCV />} /> */}
+            <Route path="/" element={<PreviewCV />} />
           </Routes>
         </main>
-        <Footer />
       </Router>
     </div>
   );

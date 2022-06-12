@@ -23,6 +23,7 @@ function AboutMe({ aboutMe }) {
   };
   return (
     <>
+      <h1> About Me </h1>
       {displayForm ? (
         <form
           onSubmit={editAboutMe}
