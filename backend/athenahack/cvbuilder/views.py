@@ -45,7 +45,7 @@ class CVFinishedViewSet(ReadOnlyModelViewSet):
     filter_backends = (OrderingFilter, DjangoFilterBackend)
 
     def get_queryset(self):
-        return CV.objects.filter_by_user(user=self.request.user_id)
+        return CV.objects.filter(user=self.request.user_id)
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
