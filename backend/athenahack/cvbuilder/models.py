@@ -12,10 +12,10 @@ class Company(models.Model):
 class User(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=15)
-    email = models.CharField(max_length=200)
-    date_of_birth = models.DateField()
-    preferred_language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=15, null=True)
+    email = models.CharField(max_length=200, null=True)
+    date_of_birth = models.DateField(null=True)
+    preferred_language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
 
 class AboutMe(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -60,8 +60,6 @@ class UserLanguage(models.Model):
 class CV(models.Model):
     id = models.IntegerField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField(null=True)
+    company = models.CharField(max_length=200, null=True)
     role_name = models.CharField(max_length=200)
-    skills = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    skills = models.CharField(max_length=200)
