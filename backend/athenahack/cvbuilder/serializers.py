@@ -1,5 +1,5 @@
 from .models import (
-    CV, Experience, UserSkill)
+    CV, Experience, UserSkill, User)
 from rest_framework import serializers
 
 
@@ -24,26 +24,9 @@ class CVSerializers:
 
 
         class Meta:
-            model = CV
+            model = User
             fields = (
-                "id",
-                "client",
-                "user",
-                "user_public_id",
-                "user_deleted",
-                "user_fullname",
-                "user_insight_response",
-                "is_anon",
-                "course_section",
-                "course_section_title",
-                "course_section_url_slug",
-                "course_page_no",
-                "course_page_title",
-                "course_page_url_slug",
-                "insight_question",
-                "admin_responded",
-                "created",
-                "archived",
+                "user_id",
             )
 
         def get_work_experience(self, user):

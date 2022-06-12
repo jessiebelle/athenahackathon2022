@@ -9,7 +9,7 @@ services:
       - MYSQL_USER='root'
       - MYSQL_PASSWORD='pass'
       - MYSQL_ROOT_PASSWORD='pass'
-      - MYSQL_HOST=''
+      - MYSQL_HOST='athenadb'
     volumes:
       - /tmp/app/mysqld:/var/run/mysqld
       - ./db:/var/lib/mysql

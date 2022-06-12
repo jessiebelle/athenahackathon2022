@@ -77,18 +77,10 @@ WSGI_APPLICATION = 'athenahack.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "request_metrics.db.backends.mysql",
-        "NAME": os.environ.get("DB_NAME", "athenadb"),
-        "USER": os.environ.get("DB_USER", "root"),
-        "PASSWORD": os.environ.get("DB_PASS", "pass"),
-        "HOST": os.environ.get("DB_HOST", "db"),
-        "PORT": "3306",
-        "OPTIONS": {
-            "charset": "utf8mb4",
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES', collation_connection='utf8mb4_general_ci'",
+        "ENGINE": "django.db.backends.sqlite3",
+        'NAME': 'mydatabase',
         },
     }
-}
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

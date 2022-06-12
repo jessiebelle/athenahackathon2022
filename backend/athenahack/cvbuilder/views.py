@@ -9,9 +9,6 @@ from .models import CV
 from .serializers import CVSerializers
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
 
 class CVViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
@@ -34,7 +31,7 @@ class CVFinishedViewSet(ReadOnlyModelViewSet):
     ordering = ("insight_question",)
 
     def get_queryset(self):
-        return CV.objects.filter_by_user(user=self.request.user)
+        return CV.objects.filter_by_user(user=self.request.user_id)
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
