@@ -39,7 +39,6 @@ class Experience(models.Model):
 class Skill(models.Model):
     id = models.IntegerField(primary_key=True)
     skill_name = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class UserSkill(models.Model):
     id = models.IntegerField(primary_key=True)

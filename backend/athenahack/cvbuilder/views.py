@@ -44,7 +44,6 @@ class CVFinishedViewSet(ReadOnlyModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializers.CVResponseSerializer
     filter_backends = (OrderingFilter, DjangoFilterBackend)
-    ordering = ("insight_question",)
 
     def get_queryset(self):
         return CV.objects.filter_by_user(user=self.request.user_id)
@@ -55,7 +54,7 @@ class CVFinishedViewSet(ReadOnlyModelViewSet):
 
     @action(methods=["get"], detail=True, url_path="cv", url_name="cv")
     def publish(self, request, *args, **kwargs):
-        self.serializer_class = AssistPublishSerializerR1
+        self.serializer_class = CVCreateViewSetR1
         instance = self.get_object()
 
         serializer = self.get_serializer(instance, data=request.data)
