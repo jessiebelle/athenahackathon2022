@@ -2,6 +2,7 @@ import { Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
+import SkillItem from './SkillItem';
 
 export default function Skills({ skills }) {
   const defaultValues = {
@@ -9,10 +10,6 @@ export default function Skills({ skills }) {
   };
   const [displayForm, setDisplayForm] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
-
-  const deleteSkill = () => {
-    console.log('deleteSkill');
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -38,24 +35,7 @@ export default function Skills({ skills }) {
           marginBottom: '10px',
         }}
       >
-        {skills &&
-          skills.map((skill) => (
-            <div
-              style={{
-                margin: '5px',
-                background: '#DBDBDB',
-                width: 'fit-content',
-                padding: '4px',
-                alignItems: 'center',
-                borderRadius: '4px',
-              }}
-            >
-              {skill.skill_name_by_language[0].skill_display_name}
-              <span style={{ margin: '5px' }} onClick={deleteSkill}>
-                X
-              </span>
-            </div>
-          ))}
+        {skills && skills.map((skill) => <SkillItem skill={skill} />)}
       </div>
       {displayForm && (
         <form
@@ -78,7 +58,7 @@ export default function Skills({ skills }) {
           />
           <SecondaryButton
             variant="contained"
-            type={"submit"}
+            type={'submit'}
             text={'submit'}
           ></SecondaryButton>
         </form>

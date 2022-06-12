@@ -30,13 +30,11 @@ function Experience({ experience }) {
     });
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setDisplayForm(false);
     console.log(formValues);
   };
-  
 
   return (
     <>
