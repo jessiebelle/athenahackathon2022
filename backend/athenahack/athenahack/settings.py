@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4exf+!)@cedudfarxeyd!%8pa47vpd%+9fzp#(lw!r!cd+r@wv'
+SECRET_KEY = os.environ.get("SECRET_KEY", "cybsafe")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,15 +77,16 @@ WSGI_APPLICATION = 'athenahack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'athenadb',
-        'USER': 'root',
-        'PASSWORD': 'pass',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        "ENGINE": "request_metrics.db.backends.mysql",
+        "NAME": os.environ.get("DB_NAME", "athenadb"),
+        "USER": os.environ.get("DB_USER", "root"),
+        "PASSWORD": os.environ.get("DB_PASS", "pass"),
+        "HOST": os.environ.get("DB_HOST", "db"),
+        "PORT": "3306",
+        "OPTIONS": {
+            "charset": "utf8mb4",
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES', collation_connection='utf8mb4_general_ci'",
+        },
     }
 }
 
